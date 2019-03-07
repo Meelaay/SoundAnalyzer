@@ -13,17 +13,14 @@ class Piezo:
     def __init__(self, gpioPIN):
         self.__gpioPIN = gpioPIN
         self.__isTriggered = False
+        GPIO.setup(self.__gpioPIN, GPIO.OUT)
         GPIO.output(self.__gpioPIN, GPIO.LOW)
 
     @property
     def IsTriggered(self):
         return self.__isTriggered
 
-
-    def __METHODTEST(cls):
-        return 1
-
-     # TODO figure out a way to (as micInput gose up beyond threshold piezo makes more sound)
+    # TODO figure out a way to (as micInput gose up beyond threshold piezo makes more sound)
     def StartAlarm(self, duration):
         """duration must be passed as seconds"""
 
