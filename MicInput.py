@@ -10,13 +10,16 @@ class MicInput:
         self.__gpioPIN = gpioPIN
         self.__current_dB = 0
         self.__isON = True
-        GPIO.setup(self.__gpioPIN, GPIO.IN)
+        # GPIO.setup(self.__gpioPIN, GPIO.IN)
         self.__Update_dB()
         # set as GPIO Input
 
     @property
     def Current_dB(self):
         return self.__current_dB
+
+    def __StartListening(self):
+
 
     def __fire_and_forget(f):
         def wrapped(*args, **kwargs):

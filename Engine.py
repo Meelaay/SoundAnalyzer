@@ -19,35 +19,32 @@ class Engine:
             # say dB is 0-255
             currentSoundLevel = self.__driver.GetCurrentdB() * (1 / Globals.NUMBER_OF_LEDS)
             # if currentSoundLevel < soundRange[i]:
-            if currentSoundLevel < self.__soundRange[0]:
+            if currentSoundLevel < 1 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(0)
 
-            if currentSoundLevel < self.__soundRange[1]:
+            if currentSoundLevel < 2 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(1)
 
-            if currentSoundLevel < self.__soundRange[2]:
+            if currentSoundLevel < 3 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(2)
 
-            if currentSoundLevel < self.__soundRange[3]:
+            if currentSoundLevel < 4 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(3)
 
-            if currentSoundLevel < self.__soundRange[4]:
+            if currentSoundLevel < 5 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(4)
 
-            if currentSoundLevel < self.__soundRange[5]:
+            if currentSoundLevel < 6 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(5)
                 self.__driver.TriggerPiezo(duration=4)
                 # timout to quiet
                 # self.__driver.TimeOutPiezo(2)
 
-            if currentSoundLevel < self.__soundRange[6]:
+            if currentSoundLevel < 7 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(6)
                 # vary duration ?
                 self.__driver.TriggerPiezo(duration=4)
 
-            if currentSoundLevel < self.__soundRange[7]:
+            if currentSoundLevel < 8 * (self.__soundRange / 8):
                 self.__driver.LightUpToNthLed(7)
                 self.__driver.TriggerPiezo(duration=4)
-
-
-

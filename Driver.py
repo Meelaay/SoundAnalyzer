@@ -1,13 +1,14 @@
 from LED import LED
 from Piezo import Piezo
-from MicInput import MicInput
+# from MicInput import MicInput
+from groveTest import GroveLoudnessSensor
 from Utilities import Color
 from Utilities import Globals
 import RPi.GPIO as GPIO
 
 
 class Driver:
-    def __init__(self, ledGpioPins, micGpioPIN, piezoGpioPIN):
+    def __init__(self, ledGpioPins, groveChannel, piezoGpioPIN):
         GPIO.setmode(GPIO.BOARD)
         self.__leds = []
 
@@ -15,7 +16,7 @@ class Driver:
             raise Exception("Driver::__init__() : Invalid number of LEDs.")
 
         self.__InitializeLEDS(ledGpioPins)
-        self.__micInput = MicInput(micGpioPIN)
+        self.__groveLoudness = GroveLoudnessSensor(groveChannel)
         self.__piezo = Piezo(piezoGpioPIN)
 
     def __InitializeLEDS(self, ledGpioPins):
@@ -50,7 +51,7 @@ class Driver:
             self.__leds[j].Toggle(GPIO.LOW)
 
     def GetCurrentdB(self):
-        return self.__micInput.Current_dB
+        return self.__groveLoudness.Current_dB
 
     def TriggerPiezo(self, duration):
         self.__piezo.StartAlarm(duration)

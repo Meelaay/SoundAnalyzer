@@ -13,3 +13,5 @@ class Globals:
 
 if __name__ == "__main__":
     print(Globals.NUMBER_OF_LEDS)
+
+
