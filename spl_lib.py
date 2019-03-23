@@ -1,7 +1,9 @@
 #Created by JetBrains PyCharm
+#Project Name: SoundAnalyzer with RaspberryPi
 #Author: EL BARAKA Amine
-#Project Name:
-#Date: 
+#University: Cergy-Pontoise
+#E-mail : elbaraka.amine2@gmail.com
+
 import numpy
 from scipy.signal import bilinear
 
