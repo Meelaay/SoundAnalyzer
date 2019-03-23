@@ -39,10 +39,10 @@ class LED:
         # GPIO.output(self.__gpioPIN, GPIO.HIGH)
 
 
-if __name__ == "__main__":
-    a = LED(position=0, gpioPIN=9, color=Color.GREEN)
-    print(a.IsOn)
-    a.InvertState()
-    print(a.IsOn)
-    a.Toggle(GPIO.LOW)
-    print(a.IsOn)
+# if __name__ == "__main__":
+#     a = LED(position=0, gpioPIN=9, color=Color.GREEN)
+#     print(a.IsOn)
+#     a.InvertState()
+#     print(a.IsOn)
+#     a.Toggle(GPIO.LOW)
+#     print(a.IsOn)

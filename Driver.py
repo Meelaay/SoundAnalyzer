@@ -1,23 +1,29 @@
 from LED import LED
 from Piezo import Piezo
 # from MicInput import MicInput
-from groveTest import GroveLoudnessSensor
+#from groveTest import GroveLoudnessSensor
 from Utilities import Color
 from Utilities import Globals
-import RPi.GPIO as GPIO
+from MicUSB import MicUSB
 
+import RPi.GPIO as GPIO
+import time
+import os
 
 class Driver:
     def __init__(self, ledGpioPins, groveChannel, piezoGpioPIN):
         GPIO.setmode(GPIO.BOARD)
+        self.__button = 7
         self.__leds = []
 
         if len(ledGpioPins) != Globals.NUMBER_OF_LEDS:
             raise Exception("Driver::__init__() : Invalid number of LEDs.")
 
         self.__InitializeLEDS(ledGpioPins)
-        self.__groveLoudness = GroveLoudnessSensor(groveChannel)
-        self.__piezo = Piezo(piezoGpioPIN)
+        self.__micUSB = MicUSB()
+        GPIO.setup(self.__button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        #self.__groveLoudness = GroveLoudnessSensor(groveChannel)
+        #self.__piezo = Piezo(piezoGpioPIN)
 
     def __InitializeLEDS(self, ledGpioPins):
         ledColor = Color.GREEN
@@ -50,21 +56,24 @@ class Driver:
         for j in range(Globals.NUMBER_OF_LEDS, Globals.NUMBER_OF_LEDS - nthLed):
             self.__leds[j].Toggle(GPIO.LOW)
 
+
     def GetCurrentdB(self):
-        return self.__groveLoudness.Current_dB
+        #return self.__groveLoudness.Current_dB
+        return self.__micUSB.GetdB()
+
+    def CheckForShutdown(self):
+        if GPIO.input(self.__button)==0:
+                print("shutting down...")
+                os.system("shutdown now -h")
+                #sleep(.3)
 
     def TriggerPiezo(self, duration):
         self.__piezo.StartAlarm(duration)
 
-# if __name__ == "__main__":
-#     ledGpioPins = [9, 10, 11, 12, 13, 14, 15, 16]
-#     driver = Driver(ledGpioPins, micGpioPIN=3, piezoGpioPIN=4)
-#     driver.LightUpToNthLed(3)
-#     driver.LightUpToNthLed(5)
-#     driver.LightUpToNthLed(7)
-#     driver.LightUpToNthLed(2)
-#     driver.LightUpToNthLed(0)
-
-#     driver.LightUpToNthLed(5)
-#     driver.LightUpToNthLed(3)
-#     print("DONE")
+if __name__ == "__main__":
+    ledGpioPins = [38, 36, 32, 24, 22, 18, 16, 12]
+    driver = Driver(ledGpioPins, 0, 0)
+    for i in range(0, 8):
+        driver.LightUpToNthLed(i)
+        time.sleep(.4)
+    print("DONE")

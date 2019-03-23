@@ -29,8 +29,8 @@ def main():
     while True:
         value = sensor.value
         if value > 10:
-        	print("Loud value {}, Loud Detected.".format(value))
-        	time.sleep(.3)
+            print("Loud value {}, Loud Detected.".format(value))
+            time.sleep(.3)
 
 if __name__ == '__main__':
     main()
